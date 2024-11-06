@@ -45,8 +45,6 @@ const TaskList = ({ isLightMode }) => {
                         <TaskItem
                             key={task.id}
                             task={task}
-                            handleDelete={handleDeleteTask}
-                            handleEdit={handleEdit}
                             isLightMode={isLightMode}
                         />
                     )) : <p className='py-4'> No Task Available
