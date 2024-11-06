@@ -3,7 +3,7 @@ import { FaPlus, FaEdit, FaTimes } from 'react-icons/fa';
 import { UserContext } from '../context/ContextProvider';
 
 const TaskInput = ({ isLightMode }) => {
-    const {  handleUpdate, handleAddTask,handleCancel,newTask,setNewTask, singleTask, setSingleTask, editingId, errors, }= useContext(UserContext)
+    const {handleUpdateTask:  handleUpdate, handleAddTask,handleCancel,newTask,setNewTask, singleTask, setSingleTask, editingId, errors, }= useContext(UserContext)
     
     return (
         <div className={`flex flex-col w-full p-4 rounded-lg shadow-lg ${isLightMode ? 'bg-white' : 'bg-[#1B1B2A]'}`}>
