@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaPlus, FaEdit, FaTimes } from 'react-icons/fa';
+import { UserContext } from '../context/ContextProvider';
 
-const TaskInput = ({ handleUpdate, handleAddTask, handleCancel, singleTask, setSingleTask, editingId, errors, isLightMode }) => {
+const TaskInput = ({ isLightMode }) => {
+    const {  handleUpdate, handleAddTask,handleCancel,newTask,setNewTask, singleTask, setSingleTask, editingId, errors, }= useContext(UserContext)
+    
     return (
         <div className={`flex flex-col w-full p-4 rounded-lg shadow-lg ${isLightMode ? 'bg-white' : 'bg-[#1B1B2A]'}`}>
             {/* Task Title and Due Date */}

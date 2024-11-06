@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import TaskItem from './TaskItem';
+import { UserContext } from '../context/ContextProvider';
 
-const TaskList = ({ tasks, handleDelete, handleEdit, isLightMode }) => {
+const TaskList = ({ isLightMode }) => {
+    const { tasks, handleDeleteTask, handleEdit }= useContext(UserContext)
     const [activeFilter, setActiveFilter] = useState('all');
 
     const filteredTasks = tasks.filter(task => {
@@ -17,7 +19,7 @@ const TaskList = ({ tasks, handleDelete, handleEdit, isLightMode }) => {
 
         return `${baseClass} ${activeClass}`;
     };
-
+    const { user, setUser } = useContext(UserContext);
 
 
     return (
@@ -43,7 +45,7 @@ const TaskList = ({ tasks, handleDelete, handleEdit, isLightMode }) => {
                         <TaskItem
                             key={task.id}
                             task={task}
-                            handleDelete={handleDelete}
+                            handleDelete={handleDeleteTask}
                             handleEdit={handleEdit}
                             isLightMode={isLightMode}
                         />
