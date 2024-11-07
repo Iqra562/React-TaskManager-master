@@ -3,7 +3,7 @@ import { FaEdit, FaTrash, FaEye, FaTimes } from 'react-icons/fa';
 import { UserContext } from '../context/ContextProvider';
 
 const TaskItem = React.memo(({task, isLightMode }) => {
-    const { tasks, handleDeleteTask : handleDelete, handleEdit }= useContext(UserContext)
+    const {  handleDeleteTask : handleDelete, handleEdit }= useContext(UserContext)
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [statusOptionsVisible, setStatusOptionsVisible] = useState(false);

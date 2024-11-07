@@ -19,20 +19,7 @@ const App = () => {
   }, [darkMode]);
 
 
-  const {
-    newTask,
-    setNewTask,
-
-    setErrors,
-    
-    setEditingId,
-
-    handleCancel,
-    isModalOpen,
-    setIsModalOpen,
-  
-    
-  } = useContext(UserContext);
+  const {setErrors, setEditingId,handleCancel,isModalOpen,setIsModalOpen} = useContext(UserContext);
 
   return (
 
@@ -52,7 +39,7 @@ const App = () => {
         <button
           className={`mb-4 flex items-center justify-center gap-2 px-4 py-2 text-sm text-white rounded-lg transition duration-300 ${darkMode ? 'bg-gray-600 hover:bg-gray-700' : 'bg-blue-300 hover:bg-blue-400'} shadow-lg self-end`}
           onClick={() => {
-            setNewTask('');
+            // setNewTask('');
             setEditingId(null);
             setErrors('');
             setIsModalOpen(true);
