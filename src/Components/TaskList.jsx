@@ -1,11 +1,13 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useReducer, useState } from 'react';
 import TaskItem from './TaskItem';
 import { UserContext } from '../context/ContextProvider';
+import { initialState, reducer } from '../reducers/TodosReducer';
 
 const TaskList = ({ isLightMode }) => {
-    const { tasks, handleDeleteTask, handleEdit }= useContext(UserContext)
+    // const { tasks }= useContext(UserContext)
     const [activeFilter, setActiveFilter] = useState('all');
-
+    const [state, dispatch] = useReducer(reducer, initialState);
+    const { singleTask, tasks, isModalOpen } = state;
     const filteredTasks = tasks.filter(task => {
         if (activeFilter === 'all') return true; 
         return task.status.toLowerCase() === activeFilter.toLowerCase();

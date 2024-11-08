@@ -1,10 +1,31 @@
 import React, { useContext } from 'react';
 import { FaPlus, FaEdit, FaTimes } from 'react-icons/fa';
 import { UserContext } from '../context/ContextProvider';
+import { useReducer } from 'react';
+import { reducer,initialState } from '../reducers/TodosReducer';
 
 const TaskInput = ({ isLightMode }) => {
-    const {handleUpdateTask:  handleUpdate, handleAddTask,handleCancel, singleTask, setSingleTask, editingId, errors, }= useContext(UserContext)
-    
+    const {handleUpdateTask:  handleUpdate,handleCancel,
+        //  singleTask, 
+         setSingleTask, editingId, errors, }= useContext(UserContext)
+         const [state, dispatch] = useReducer(reducer, initialState);
+         const { singleTask, tasks, isModalOpen } = state;
+         const handleInputChange = (e) => {
+             const { name, value } = e.target;
+             dispatch({
+                 type: 'Update_Single_Task_Field',  // Use the correct action type
+                 payload: { field: name, value },
+                });
+                console.log(singleTask)
+      };
+      
+
+      const handleAddTask = ()=>{
+        dispatch({
+            type: 'Add_task',  
+           });
+           console.log(tasks,"2222222222")
+      }
     return (
         <div className={`flex flex-col w-full p-4 rounded-lg shadow-lg ${isLightMode ? 'bg-white' : 'bg-[#1B1B2A]'}`}>
             {/* Task Title and Due Date */}
@@ -13,9 +34,10 @@ const TaskInput = ({ isLightMode }) => {
                     <label className="mb-2 font-semibold">Task Title</label>
                     <input
                         type='text'
+                        name='text'
                         placeholder='What Next?'
                         value={singleTask.text}
-                        onChange={(e) => setSingleTask({ ...singleTask, text: e.target.value })}
+                      onChange={handleInputChange}
                         className={`w-full p-4 rounded-lg transition duration-300 ${isLightMode ? 'bg-white text-black' : 'bg-[#1B1B2A] text-[#EAEAEA]'}`}
                     />
                 </div>
@@ -23,8 +45,9 @@ const TaskInput = ({ isLightMode }) => {
                     <label className="mb-2 font-semibold">Due Date</label>
                     <input
                         type='date'
+                        name='dueDate'
                         value={singleTask.dueDate}
-                        onChange={(e) => setSingleTask({ ...singleTask, dueDate: e.target.value })}
+                        onChange={handleInputChange}
                         className={`w-full p-4 rounded-lg transition duration-300 ${isLightMode ? 'bg-white text-black' : 'bg-[#1B1B2A] text-[#EAEAEA]'}`}
                     />
                 </div>
@@ -35,7 +58,8 @@ const TaskInput = ({ isLightMode }) => {
                 <label className="mb-2 font-semibold">Priority</label>
                 <select
                     value={singleTask.priority}
-                    onChange={(e) => setSingleTask({ ...singleTask, priority: e.target.value })}
+                    name='priority'
+                    onChange={handleInputChange}
                     className={`block w-full p-4 rounded-lg transition duration-300 ${isLightMode ? 'bg-white text-black' : 'bg-[#1B1B2A] text-[#EAEAEA]'}`}
                 >
                     <option value="low">Low</option>
@@ -48,8 +72,9 @@ const TaskInput = ({ isLightMode }) => {
             <label className="mb-2 font-semibold">Description</label>
             <textarea
                 placeholder='Description'
+                name='description'
                 value={singleTask.description}
-                onChange={(e) => setSingleTask({ ...singleTask, description: e.target.value })}
+                onChange={handleInputChange}
                 className={`w-full p-4 mb-4 rounded-lg transition duration-300 ${isLightMode ? 'bg-white text-black' : 'bg-[#1B1B2A] text-[#EAEAEA]'}`}
             />
 

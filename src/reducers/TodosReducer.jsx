@@ -2,12 +2,12 @@ import React from "react";
 import { useReducer } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-const initialState = {
+export  const initialState = {
 
   tasks :[],
   singleTask:{
     id : uuidv4(),
-    text: '',
+    text: 'gg',
     dueDate: '',
     priority: 'low',
     status: 'pending',
@@ -20,29 +20,41 @@ const initialState = {
 }
 
  
-const validateTask = (task) => {
-    const trimmedText = task.text.trim();
+// const validateTask = (task) => {
+//     const trimmedText = task.text.trim();
     
-    if (trimmedText === '') {
-        return 'Task Cannot Be Empty';
-    }
+//     if (trimmedText === '') {
+//         return 'Task Cannot Be Empty';
+//     }
     
 
 
-    if (task.dueDate && new Date(task.dueDate) < new Date()) {
-        return 'Due Date Cannot Be in the Past';
-    }
+//     if (task.dueDate && new Date(task.dueDate) < new Date()) {
+//         return 'Due Date Cannot Be in the Past';
+//     }
 
-    return '';
-};
+//     return '';
+// };
 
 
-const  reducer= (state,action)=>{
+export const  reducer= (state,action)=>{
     switch (action.type) {
+        case "Update_Single_Task_Field": {
+            return {
+              ...state,
+              singleTask: [
+                {
+                  ...state.singleTask[0],  
+                  [action.payload.field]: action.payload.value,
+                },
+              ],
+            };
+          }
+          
         case "Add_task":{
-            const error = validateTask(singleTask);
+            // const error = validateTask(...state.singleTask);
 
-            if (error) return { ...state, errors: error };
+            // if (error) return { ...state,...state.errors : error };
             return{
 
                 ...state,
@@ -59,11 +71,9 @@ const  reducer= (state,action)=>{
                 setIsModalOpen:false,
             }
         }
-            
+  
 
     }
 }
 
 
-
-export default TodosReducer;
