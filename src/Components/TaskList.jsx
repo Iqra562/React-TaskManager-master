@@ -1,19 +1,26 @@
-import React, { useContext, useReducer, useState } from 'react';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
 import TaskItem from './TaskItem';
 import { UserContext } from '../context/ContextProvider';
 import { initialState, reducer } from '../reducers/TodosReducer';
+import { ReducerContext } from '../context/ReducerContextProvider';
 
 const TaskList = ({ isLightMode }) => {
     // const { tasks }= useContext(UserContext)
     const [activeFilter, setActiveFilter] = useState('all');
-    const [state, dispatch] = useReducer(reducer, initialState);
+    // const [state, dispatch] = useReducer(reducer, initialState);
+    const [state, dispatch] = useContext(ReducerContext);
     const { singleTask, tasks, isModalOpen } = state;
+  
+    // const { singleTask, tasks, isModalOpen } = state;
     const filteredTasks = tasks.filter(task => {
         if (activeFilter === 'all') return true; 
         return task.status.toLowerCase() === activeFilter.toLowerCase();
     });
-
-    const getButtonClass = (filter) => {
+useEffect(()=>{
+console.log(state.tasks,"TASKS")
+},[state])
+console.log(state.tasks,"TASKS")
+const getButtonClass = (filter) => {
         const baseClass = `w-20 px-2 py-2 first:rounded-l-md last:rounded-r-md  sm: px-1 py-1 text-sm `;
         const activeClass = activeFilter === filter
             ? (isLightMode ? 'bg-gray-500 text-white' : 'bg-gray-900 text-white')
@@ -26,7 +33,7 @@ const TaskList = ({ isLightMode }) => {
 
     return (
         <>
-        {tasks.length > 0 && tasks.some((task) => task.id !== '') && (
+        {tasks.length > 0  && (
             <div className={`flex items-center justify-center `} >
 
                 <button className={getButtonClass('all')} onClick={() => setActiveFilter('all')}>All</button>
@@ -35,6 +42,7 @@ const TaskList = ({ isLightMode }) => {
                 <button className={getButtonClass('completed')} onClick={() => setActiveFilter('completed')}>Completed</button>
 
             </div>
+            
         ) }
             <div className={`relative w-full h-72 overflow-hidden rounded-lg ${isLightMode ? 'bg-gray-100' : 'bg-[#16213E]'}`}>
                 {/* Top Gradient */}
@@ -49,7 +57,8 @@ const TaskList = ({ isLightMode }) => {
                             task={task}
                             isLightMode={isLightMode}
                         />
-                    )) : <p className='py-4'> No Task Available
+                    )) :
+                     <p className='py-4'> No Task Available
                           </p>}
                 </ul>
             </div>

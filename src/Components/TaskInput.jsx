@@ -3,29 +3,28 @@ import { FaPlus, FaEdit, FaTimes } from 'react-icons/fa';
 import { UserContext } from '../context/ContextProvider';
 import { useReducer } from 'react';
 import { reducer,initialState } from '../reducers/TodosReducer';
-
+import { ReducerContext } from '../context/ReducerContextProvider';
 const TaskInput = ({ isLightMode }) => {
-    const {handleUpdateTask:  handleUpdate,handleCancel,
-        //  singleTask, 
-         setSingleTask, editingId, errors, }= useContext(UserContext)
-         const [state, dispatch] = useReducer(reducer, initialState);
-         const { singleTask, tasks, isModalOpen } = state;
-         const handleInputChange = (e) => {
-             const { name, value } = e.target;
-             dispatch({
-                 type: 'Update_Single_Task_Field',  // Use the correct action type
-                 payload: { field: name, value },
-                });
-                console.log(singleTask)
-      };
-      
-
-      const handleAddTask = ()=>{
-        dispatch({
-            type: 'Add_task',  
-           });
-           console.log(tasks,"2222222222")
-      }
+    const { handleUpdateTask: handleUpdate, handleCancel, editingId, errors } = useContext(UserContext);
+    const [state, dispatch] = useContext(ReducerContext);
+    const { singleTask, tasks, isModalOpen } = state;
+  
+    const handleInputChange = (e) => {
+      const { name, value } = e.target;
+      dispatch({
+        type: 'Update_Single_Task_Field',
+        payload: { field: name, value },
+      });
+      console.log(singleTask);
+    };
+  
+    const handleAddTask = () => {
+      dispatch({
+        type: 'Add_task',
+      });
+      console.log(tasks, "Updated Task List");
+    };
+  
     return (
         <div className={`flex flex-col w-full p-4 rounded-lg shadow-lg ${isLightMode ? 'bg-white' : 'bg-[#1B1B2A]'}`}>
             {/* Task Title and Due Date */}

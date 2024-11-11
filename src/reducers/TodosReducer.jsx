@@ -7,7 +7,7 @@ export  const initialState = {
   tasks :[],
   singleTask:{
     id : uuidv4(),
-    text: 'gg',
+    text: '',
     dueDate: '',
     priority: 'low',
     status: 'pending',
@@ -39,17 +39,16 @@ export  const initialState = {
 
 export const  reducer= (state,action)=>{
     switch (action.type) {
-        case "Update_Single_Task_Field": {
-            return {
-              ...state,
-              singleTask: [
-                {
-                  ...state.singleTask[0],  
-                  [action.payload.field]: action.payload.value,
-                },
-              ],
-            };
-          }
+      case "Update_Single_Task_Field": {
+        return {
+            ...state,
+            singleTask: {
+                ...state.singleTask,  // Spread the existing singleTask object
+                [action.payload.field]: action.payload.value,  // Update only the selected field
+            },
+        };
+    }
+    
           
         case "Add_task":{
             // const error = validateTask(...state.singleTask);
