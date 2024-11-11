@@ -6,12 +6,16 @@ import { FaPlus } from 'react-icons/fa';
 import useTaskManager from './hooks/useTaskManager';
 import './App.css';
 import {UserContext, UserContextProvider} from './context/ContextProvider';
+import { ReducerContext } from './context/ReducerContextProvider';
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(() => {
     const savedMode = localStorage.getItem('darkMode');
     return savedMode === 'true';
   });
+  const [state, dispatch,] = useContext(ReducerContext);
+  const { singleTask, tasks, isModalOpen } = state;
+
 
   useEffect(() => {
     localStorage.setItem('darkMode', darkMode);
@@ -19,7 +23,7 @@ const App = () => {
   }, [darkMode]);
 
 
-  const {setErrors, setEditingId,handleCancel,isModalOpen,setIsModalOpen} = useContext(UserContext);
+  const {setErrors, setEditingId,handleCancel} = useContext(UserContext);
 
   return (
 
@@ -37,23 +41,23 @@ const App = () => {
         </button>
 
         <button
-          className={`mb-4 flex items-center justify-center gap-2 px-4 py-2 text-sm text-white rounded-lg transition duration-300 ${darkMode ? 'bg-gray-600 hover:bg-gray-700' : 'bg-blue-300 hover:bg-blue-400'} shadow-lg self-end`}
-          onClick={() => {
-            // setNewTask('');
-            setEditingId(null);
-            setErrors('');
-            setIsModalOpen(true);
-          }}
-        >
-          <FaPlus size={16} />
-          <span>Add Task</span>
-        </button>
+    className={`mb-4 flex items-center justify-center gap-2 px-4 py-2 text-sm text-white rounded-lg transition duration-300 ${darkMode ? 'bg-gray-600 hover:bg-gray-700' : 'bg-blue-300 hover:bg-blue-400'} shadow-lg self-end`}
+    onClick={() => {
+        // Dispatch the Open_modal action
+        dispatch({
+            type: 'Open_modal',
+        });
+    }}
+>
+    <FaPlus size={16} />
+    <span>Add Task</span>
+</button>
+
 
         {isModalOpen && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
             <div className={`rounded-xl p-6 ${darkMode ? 'bg-gray-800' : 'bg-white'} z-50 w-11/12 md:w-2/3 lg:w-1/2`}>
               <TaskInput
-                handleCancel={handleCancel}
                 isLightMode={!darkMode}
               
               />

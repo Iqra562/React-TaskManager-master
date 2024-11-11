@@ -67,7 +67,8 @@ export const  reducer= (state,action)=>{
                 
                 singleTask : initialState.singleTask,
                 errors : '',
-                setIsModalOpen:false,
+                editingId:null,
+                isModalOpen:false,
             }
         }
         case "Delete_task": {
@@ -90,7 +91,7 @@ export const  reducer= (state,action)=>{
                     status: editTask.status,
                     description: editTask.description,
                 },
-                editingId: action.payload.id,
+                editingId: action.payload,
                 errors: '',
                 isModalOpen: true,
             };
@@ -98,36 +99,44 @@ export const  reducer= (state,action)=>{
         
        
     }
-    case "Cancel_task":
-    return {
-        ...state,
-        singleTask: {
-            id: uuidv4(),
-            text: '',
-            dueDate: '',
-            priority: 'low',
-            status: 'pending',
-            description: ''
-        },
-        errors: '',
-        editingId: null,
-        isModalOpen: false,
-    };
+    case "Update_task": {
+        const updatedTasks = state.tasks.map((task) =>
+            task.id === state.editingId
+                ? { ...task, ...state.singleTask } 
+                : task
+        );
+    
+        return {
+            ...state,
+            tasks: updatedTasks,
+            singleTask: initialState.singleTask, 
+            errors: '',  
+            editingId: null,  
+            isModalOpen: false,
+        };
+    }
+    
+    case "Cancel_task":{
 
-    // const handleCancel = () => {
-    //   setEditingId(null);
-    //   setSingleTask({
-    //     id: uuidv4(),
-    //     text: '',
-    //     dueDate: '',
-    //     priority: 'low',
-    //     status: 'pending',
-    //     description: ''
-    // });
-    //   setErrors('');
-    //   setIsModalOpen(false);
-    // };
-
+        return {
+            ...state,
+            singleTask:  initialState.singleTask,
+            errors: '',
+            editingId: null,
+            isModalOpen: false,
+        };
+        
+    }
+    case "Open_modal": {
+        return {
+            ...state,  // Ensure you're spreading the existing state to preserve other state values
+            errors: '',
+            editingId: null,
+            isModalOpen: true,
+        };
+    }
+    
+   
 
     }
 }

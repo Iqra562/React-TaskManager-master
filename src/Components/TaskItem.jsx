@@ -7,17 +7,16 @@ import { ReducerContext } from '../context/ReducerContextProvider';
 const TaskItem = React.memo(({task, isLightMode }) => {
     // const {   handleEdit }= useContext(UserContext)
     const [state,dispatch] = useContext(ReducerContext);
-    const { singleTask, tasks,isModalOpen } = state;
+    const { singleTask, tasks } = state;
     const [statusOptionsVisible, setStatusOptionsVisible] = useState(false);
-
+  const [isModalOpen, setIsModalOpen] = useState(false)
     const handleViewDetails = () => {
         setIsModalOpen(true);
     };
 
     const handleCloseDetails = () => {
-      dispatch({
-        type:"Cancel_task"
-      })
+        setIsModalOpen(false);
+
     };
                            
     const handleStatusChange = (newStatus) => {

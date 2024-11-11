@@ -16,10 +16,7 @@ const TaskList = ({ isLightMode }) => {
         if (activeFilter === 'all') return true; 
         return task.status.toLowerCase() === activeFilter.toLowerCase();
     });
-useEffect(()=>{
-console.log(state.tasks,"TASKS")
-},[state])
-console.log(state.tasks,"TASKS")
+
 const getButtonClass = (filter) => {
         const baseClass = `w-20 px-2 py-2 first:rounded-l-md last:rounded-r-md  sm: px-1 py-1 text-sm `;
         const activeClass = activeFilter === filter
@@ -28,7 +25,7 @@ const getButtonClass = (filter) => {
 
         return `${baseClass} ${activeClass}`;
     };
-    const { user, setUser } = useContext(UserContext);
+    
 
 
     return (
