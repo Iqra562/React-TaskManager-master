@@ -27,13 +27,12 @@ const TaskInput = ({ isLightMode }) => {
         type: 'Update_task',
 
       })
-      console.log(state)
     };
-    const handleCancel = () => {
-      dispatch({
-        type: 'Cancel_task',
-      });
-    };
+    // const handleCancel = () => {
+    //   dispatch({
+    //     type: 'Cancel_task',
+    //   });
+    // };
   
     return (
         <div className={`flex flex-col w-full p-4 rounded-lg shadow-lg ${isLightMode ? 'bg-white' : 'bg-[#1B1B2A]'}`}>
@@ -96,7 +95,9 @@ const TaskInput = ({ isLightMode }) => {
                     {editingId ? <FaEdit /> : <FaPlus />}
                 </button>
                 <button
-                    onClick={handleCancel}
+                    onClick={() => {dispatch({type: 'Cancel_task'});
+                        }}
+                    
                     className={`flex items-center justify-center p-2 rounded-lg ${isLightMode ? 'bg-gray-400 text-black' : 'bg-red-500 text-white'} transition duration-300 hover:bg-opacity-80 shadow-md`}
                 >
                     <FaTimes />
