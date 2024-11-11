@@ -7,7 +7,7 @@ import { ReducerContext } from '../context/ReducerContextProvider';
 const TaskInput = ({ isLightMode }) => {
     const {   errors } = useContext(UserContext);
     const [state, dispatch] = useContext(ReducerContext);
-    const { singleTask,editingId, tasks, isModalOpen } = state;
+    const { singleTask,editingId } = state;
   
     const handleInputChange = (e) => {
       const { name, value } = e.target;
@@ -28,11 +28,6 @@ const TaskInput = ({ isLightMode }) => {
 
       })
     };
-    // const handleCancel = () => {
-    //   dispatch({
-    //     type: 'Cancel_task',
-    //   });
-    // };
   
     return (
         <div className={`flex flex-col w-full p-4 rounded-lg shadow-lg ${isLightMode ? 'bg-white' : 'bg-[#1B1B2A]'}`}>
