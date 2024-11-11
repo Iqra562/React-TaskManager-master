@@ -109,7 +109,7 @@ export const  reducer= (state,action)=>{
         return {
             ...state,
             tasks: updatedTasks,
-            singleTask: initialState.singleTask, 
+            singleTask: { ...initialState.singleTask, id: uuidv4() },
             errors: '',  
             editingId: null,  
             isModalOpen: false,
