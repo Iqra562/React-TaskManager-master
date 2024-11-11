@@ -5,13 +5,10 @@ import { initialState, reducer } from '../reducers/TodosReducer';
 import { ReducerContext } from '../context/ReducerContextProvider';
 
 const TaskList = ({ isLightMode }) => {
-    // const { tasks }= useContext(UserContext)
     const [activeFilter, setActiveFilter] = useState('all');
-    // const [state, dispatch] = useReducer(reducer, initialState);
-    const [state, dispatch] = useContext(ReducerContext);
-    const { singleTask, tasks, isModalOpen } = state;
+    const [state] = useContext(ReducerContext);
+    const { tasks } = state;
   
-    // const { singleTask, tasks, isModalOpen } = state;
     const filteredTasks = tasks.filter(task => {
         if (activeFilter === 'all') return true; 
         return task.status.toLowerCase() === activeFilter.toLowerCase();

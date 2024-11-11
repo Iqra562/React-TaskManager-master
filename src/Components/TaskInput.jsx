@@ -26,7 +26,8 @@ const TaskInput = ({ isLightMode }) => {
       dispatch({
         type: 'Update_task',
 
-      });
+      })
+      console.log(state)
     };
     const handleCancel = () => {
       dispatch({
