@@ -129,7 +129,7 @@ export const  reducer= (state,action)=>{
     }
     case "Open_modal": {
         return {
-            ...state,  // Ensure you're spreading the existing state to preserve other state values
+            ...state,  
             errors: '',
             editingId: null,
             isModalOpen: true,

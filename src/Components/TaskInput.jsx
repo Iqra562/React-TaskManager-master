@@ -15,7 +15,6 @@ const TaskInput = ({ isLightMode }) => {
         type: 'Update_Single_Task_Field',
         payload: { field: name, value },
       });
-      console.log(singleTask);
     };
   
     const handleAddTask = () => {
