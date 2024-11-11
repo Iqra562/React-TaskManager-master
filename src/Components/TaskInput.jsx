@@ -22,7 +22,6 @@ const TaskInput = ({ isLightMode }) => {
       dispatch({
         type: 'Add_task',
       });
-      console.log(tasks, "Updated Task List");
     };
   
     return (

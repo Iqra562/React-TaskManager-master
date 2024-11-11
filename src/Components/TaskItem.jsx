@@ -1,10 +1,13 @@
 import React, { useContext, useState } from 'react';
 import { FaEdit, FaTrash, FaEye, FaTimes } from 'react-icons/fa';
 import { UserContext } from '../context/ContextProvider';
+import { ReducerContext } from '../context/ReducerContextProvider';
+
 
 const TaskItem = React.memo(({task, isLightMode }) => {
-    const {  handleDeleteTask : handleDelete, handleEdit }= useContext(UserContext)
-
+    const {   handleEdit }= useContext(UserContext)
+    const [state, dispatch] = useContext(ReducerContext);
+    const { singleTask, tasks, } = state;
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [statusOptionsVisible, setStatusOptionsVisible] = useState(false);
 
@@ -22,7 +25,12 @@ const TaskItem = React.memo(({task, isLightMode }) => {
         task.status = newStatus; 
         setStatusOptionsVisible(false); 
     };
-
+    const handleDelete = (id) => {
+        dispatch({
+          type: 'Delete_task',
+          payload:id
+        });
+      };
     return (
         <>
             <li className={`relative flex flex-col justify-between m-4 p-4 rounded-lg shadow-md transition-transform transform hover:scale-105 ${isLightMode ? 'bg-white text-black' : 'bg-gray-800 text-white'}`}>

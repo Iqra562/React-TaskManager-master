@@ -43,8 +43,8 @@ export const  reducer= (state,action)=>{
         return {
             ...state,
             singleTask: {
-                ...state.singleTask,  // Spread the existing singleTask object
-                [action.payload.field]: action.payload.value,  // Update only the selected field
+                ...state.singleTask,  
+                [action.payload.field]: action.payload.value,  
             },
         };
     }
@@ -70,7 +70,13 @@ export const  reducer= (state,action)=>{
                 setIsModalOpen:false,
             }
         }
-  
+        case "Delete_task": {
+          return {
+              ...state,
+              tasks: state.tasks.filter(task => task.id !== action.payload)  // Assign filtered tasks back to the tasks property
+          };
+      }
+      
 
     }
 }
