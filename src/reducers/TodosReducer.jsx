@@ -74,7 +74,7 @@ export const  reducer= (state,action)=>{
         case "Delete_task": {
           return {
               ...state,
-              tasks: state.tasks.filter(task => task.id !== action.payload)  // Assign filtered tasks back to the tasks property
+              tasks: state.tasks.filter(task => task.id !== action.payload) 
           };
       }
       case "Edit_task": {
