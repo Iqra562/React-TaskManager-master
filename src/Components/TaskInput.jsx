@@ -5,7 +5,7 @@ import { useReducer } from 'react';
 import { reducer,initialState } from '../reducers/TodosReducer';
 import { ReducerContext } from '../context/ReducerContextProvider';
 const TaskInput = ({ isLightMode }) => {
-    const { handleUpdateTask: handleUpdate, handleCancel, editingId, errors } = useContext(UserContext);
+    const { handleUpdateTask: handleUpdate, editingId, errors } = useContext(UserContext);
     const [state, dispatch] = useContext(ReducerContext);
     const { singleTask, tasks, isModalOpen } = state;
   
@@ -21,6 +21,11 @@ const TaskInput = ({ isLightMode }) => {
     const handleAddTask = () => {
       dispatch({
         type: 'Add_task',
+      });
+    };
+    const handleCancel = () => {
+      dispatch({
+        type: 'Cancel_task',
       });
     };
   

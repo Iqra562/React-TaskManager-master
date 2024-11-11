@@ -76,7 +76,58 @@ export const  reducer= (state,action)=>{
               tasks: state.tasks.filter(task => task.id !== action.payload)  // Assign filtered tasks back to the tasks property
           };
       }
-      
+      case "Edit_task": {
+        const editTask = state.tasks.find(task => task.id === action.payload);
+    
+        if (editTask) {
+            return {
+                ...state,
+                singleTask: {
+                    ...state.singleTask,
+                    text: editTask.text,
+                    dueDate: editTask.dueDate,
+                    priority: editTask.priority,
+                    status: editTask.status,
+                    description: editTask.description,
+                },
+                editingId: action.payload.id,
+                errors: '',
+                isModalOpen: true,
+            };
+        }
+        
+       
+    }
+    case "Cancel_task":
+    return {
+        ...state,
+        singleTask: {
+            id: uuidv4(),
+            text: '',
+            dueDate: '',
+            priority: 'low',
+            status: 'pending',
+            description: ''
+        },
+        errors: '',
+        editingId: null,
+        isModalOpen: false,
+    };
+
+    // const handleCancel = () => {
+    //   setEditingId(null);
+    //   setSingleTask({
+    //     id: uuidv4(),
+    //     text: '',
+    //     dueDate: '',
+    //     priority: 'low',
+    //     status: 'pending',
+    //     description: ''
+    // });
+    //   setErrors('');
+    //   setIsModalOpen(false);
+    // };
+
 
     }
 }
